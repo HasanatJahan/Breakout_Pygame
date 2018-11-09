@@ -1,79 +1,83 @@
 import pygame
 from pygame.locals import *
-
-
-#initialize pygame 
+ 
 pygame.init()
-#initilization a success
-i = pygame.init()
-print(i)
+#i = pygame.init()
+#print(i)
 
-#screen dimensions
+#Screen dimensions
 display_width = 800
 display_height = 600
-#color definitions
+
+#Object dimensions
+img_width = 40
+img_height = 40
+
+#Color definitions
 black = (0,0,0)
 white = (255,255,255)
 
-#set the name
+#Display settings
 pygame.display.set_caption("Breakout!")
-#sets the display for the game
 game_display = pygame.display.set_mode((display_width, display_height))
-#specific game clock- imposes time in the game
 clock = pygame.time.Clock()
 
-#generate the image
+#Generate the image
 cloudImg = pygame.image.load("CuteCloud.png")
+#Trying to scale the image to screen size
+cloudImg = pygame.transform.scale(cloudImg, (img_width, img_height))
 
-#define functions of the game
+#--Define functions of the game
 def cloud(x,y):
 	game_display.blit(cloudImg,(x,y))
 
-#referencing the object by the top left
+#--Referencing the object by the top left
 x = (display_width * 0.45)
 y = (display_height * 0.8)
-
-#accounts for the change in position of the object
+#--Accounts for the change in position of the object
 x_change = 0
 
+#--Function that handles the movement
+def movement():
+	global x
+	global x_change
+	print(x)
+	x += x_change
 
-#this detects the events
+#This detects the events
 def event_handler():
-	#gets every event on the screen
+	# To deal with global variables to deal with scoping issues
+	global x
+	global x_change
+	#Gets every event on the screen
 	for event in pygame.event.get():
 		#print (event)
-		#to exit the game
 		if (event.type == QUIT) or (event.type == KEYDOWN and event.key == K_ESCAPE):
-			#uninitializes all python modules
+			#Uninitializes all python modules
 			pygame.quit()
-			#this exits the program
 			quit()
 
-		#to move the cloud to the left and right
-		if event.type== KEYDOWN:
+		#To move the cloud to the left and right
+		if event.type == KEYDOWN:
 			if event.key == K_LEFT:
 				x_change = -5
 			elif event.key== K_RIGHT:
 				x_change = 5
 
-		#if the key is up- the object should maintain its old position
+		#If the key is up- the object should maintain its old position
 		if event.type == KEYUP:
 			if event.key == K_LEFT or event.key == K_RIGHT:
 				x_change = 0 
 
-	#change the position of the object* 
-	#NEED TO FIGURE OUT WHERE THIS GOES
-x += x_change
+		#Change the position of the object
+		movement()
 
 
-#loop will run forever unless disrupted
+#Loop will run forever unless disrupted
 while True:
 	event_handler()
-	#game display- has to be before the game elements
 	game_display.fill(white)
-	#to show the object
+	#show the object
 	cloud(x,y)
-	#updates the display
 	pygame.display.update()
-	#frames per second-how fast things move- increase for faster
 	clock.tick(80)

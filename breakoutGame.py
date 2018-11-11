@@ -63,19 +63,21 @@ def event_handler():
 		if (event.type == QUIT) or (event.type == KEYDOWN and event.key == K_ESCAPE):
 			pygame.quit()
 			quit()
-
+	
 		#To move the paddle to the left and right
 		if event.type == KEYDOWN:
 			if event.key == K_LEFT:
+				pressed_right = True
 				x_change = -5  
 			elif event.key== K_RIGHT:
+				pressed_left = False
 				x_change = 5
 
 		#If the key is up- the object should maintain its old position
 		if event.type == KEYUP:
 			if event.key == K_LEFT or event.key == K_RIGHT:
 				x_change = 0 
-			#Trying to account for the keyup to keep moving
+			#Trying to account for the keyup to make the board movement smoother
 			if event.key == K_LEFT:
 				x_change = -5
 			elif event.key == K_RIGHT:
@@ -93,3 +95,9 @@ while True:
 	paddle(x, y)
 	pygame.display.update()
 	clock.tick(80)
+
+
+
+#NOTES FOR NEXT:
+# HOW TO PREVENT THE BOARD FROM LEAVING THE SCREEN
+#HOW TO GET THE BOARD TO MOVE SMOOTHLY

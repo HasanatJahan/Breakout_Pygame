@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 
 from Config import Config 
+from Paddle import Paddle
 
 pygame.init()
 
@@ -9,29 +10,13 @@ pygame.init()
 pygame.display.set_caption(Config['game']['caption'])
 game_display = pygame.display.set_mode((Config['game']['display_width'], Config['game']['display_height']))
 clock = pygame.time.Clock()
+paddle= Paddle(game_display)
 
-# #--Paddle 
-# def paddle(x, y):
-# 	pygame.draw.rect(game_display, Config['colors']['red'], [x, y, 40, 25])
-
-# #--Referencing the object by the top left
-# x = (Config['game']['display_width'] * 0.45)
-# y = (Config['game']['display_height'] * 0.92)
 x_change = 0
-
-#--Function that handles the movement
-def movement():
-	global x
-	global x_change
-	print(x)
-	x += x_change
-
 pressed_left = False
 pressed_right = False
 
 def event_handler():
-	global x
-	global x_change
 	#--Gets every event on the screen
 	for event in pygame.event.get():
 		#print (event)
@@ -56,7 +41,6 @@ def event_handler():
 			elif event.key == K_RIGHT:
 				pressed_right = False 
 
-		movement()
 
 #--This changes the position
 if pressed_left:
@@ -68,18 +52,12 @@ if pressed_right:
 while True:
 	event_handler()
 	game_display.fill(Config['colors']['white'])
-	#--rectangle to contain screen size
-	paddle(x, y)
+	paddle.draw()
+	paddle.movement(x_change)
+	
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])
 
-	#CALL THE PADDLE CLASS HERE
-	
 
-
-#NOTES FOR NEXT DAY:
-# HOW TO PREVENT THE BOARD FROM LEAVING THE SCREEN
-# HOW TO GET THE BOARD TO MOVE SMOOTHLY
-
-# MAKE THE DIFFERENT THINGS INTO DIFFERENT CLASSES
-# CHANGE THE VARIABLES TO GET STUFF FROM CONFIG
+#Notes:
+#1.Why isn't the paddle being displayed?

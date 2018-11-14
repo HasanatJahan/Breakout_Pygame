@@ -54,10 +54,8 @@ while True:
 	game_display.fill(Config['colors']['white'])
 	paddle.draw()
 	paddle.movement(x_change)
-	
+
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])
 
 
-#Notes:
-#1.Why isn't the paddle being displayed?

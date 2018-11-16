@@ -17,6 +17,9 @@ pressed_left = False
 pressed_right = False
 
 def event_handler():
+	global pressed_left
+	global pressed_right
+	global x_change
 	#--Gets every event on the screen
 	for event in pygame.event.get():
 		#print (event)
@@ -33,20 +36,22 @@ def event_handler():
 
 		#If the key is up- the object should maintain its old position
 		if event.type == KEYUP:
-			if event.key == K_LEFT or event.key == K_RIGHT:
-				x_change = 0 
 			#Trying to account for the keyup to make the board movement smoother
 			if event.key == K_LEFT:
 				pressed_left = False
+				x_change = 0
 			elif event.key == K_RIGHT:
 				pressed_right = False 
+				x_change = 0
 
+	#--This changes the position
+	if pressed_left:
+		x_change = -5
+	if pressed_right:
+		x_change = 5
 
-#--This changes the position
-if pressed_left:
-	x_change = -5
-if pressed_right:
-	x_change = 5
+print(pressed_left)
+print(pressed_right)
 
 #--Loop will run forever unless disrupted
 while True:

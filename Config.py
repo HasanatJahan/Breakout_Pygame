@@ -3,7 +3,7 @@ Config = {
 		'caption' : 'Breakout',
 		'display_width' : 800,
 		'display_height' : 600,
-		'fps': 80
+		'fps': 100
 	},
 
 	'colors' : {

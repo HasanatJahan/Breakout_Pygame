@@ -50,17 +50,23 @@ def event_handler():
 	if pressed_right:
 		x_change = 5
 
-print(pressed_left)
-print(pressed_right)
+	#--This handles the paddle going beyond the screen
+
+#--To prevent the paddle from escaping the screen
+if(paddle.x> Config['game']['display_width']):
+	event_handler()
+
 
 #--Loop will run forever unless disrupted
 while True:
 	event_handler()
-	game_display.fill(Config['colors']['white'])
+	game_display.fill(Config['colors']['black'])
 	paddle.draw()
 	paddle.movement(x_change)
 
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])
 
-
+#--HOW TO GET THE PADDLE FROM ESCAPING THE SCREEN WITHOUT SPRITE
+#--GET THE BALL FOR THE GAME 
+#--GENERATE THE RECTANGULAR BRICKS

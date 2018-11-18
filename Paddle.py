@@ -8,8 +8,8 @@ class Paddle:
 			self.x = (Config['game']['display_width'] * 0.45)
 			self.y = (Config['game']['display_height'] * 0.92)
 			self.game_display=game_display
-			self.paddle_width = 50
-			self.paddle_height = 25
+			self.paddle_width = Config['paddle']['paddle_width']
+			self.paddle_height = Config['paddle']['paddle_height']
 	
 			
 	def draw(self):
@@ -17,6 +17,6 @@ class Paddle:
 		
 	def movement(self, x_change):
 		self.x += x_change
-		#--This sets the boundary so the paddle leave the screen
+		#--This sets the boundary so the paddle does not leave the screen
 		if self.x>Config['game']['display_width']-self.paddle_width or self.x<0:
 			self.x -= x_change

@@ -3,6 +3,7 @@ from pygame.locals import *
 
 from Config import Config 
 from Paddle import Paddle
+from Bricks import Bricks
 
 pygame.init()
 
@@ -11,6 +12,7 @@ pygame.display.set_caption(Config['game']['caption'])
 game_display = pygame.display.set_mode((Config['game']['display_width'], Config['game']['display_height']))
 clock = pygame.time.Clock()
 paddle= Paddle(game_display)
+bricks= Bricks(game_display)
 
 x_change = 0
 pressed_left = False
@@ -50,23 +52,26 @@ def event_handler():
 	if pressed_right:
 		x_change = 5
 
-	#--This handles the paddle going beyond the screen
-
-#--To prevent the paddle from escaping the screen
-if(paddle.x> Config['game']['display_width']):
-	event_handler()
-
-
 #--Loop will run forever unless disrupted
 while True:
 	event_handler()
 	game_display.fill(Config['colors']['black'])
+	
+	#--Deals with paddle
 	paddle.draw()
 	paddle.movement(x_change)
+
+	#--Deals with bricks
+	bricks.draw()
 
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])
 
-#--HOW TO GET THE PADDLE FROM ESCAPING THE SCREEN WITHOUT SPRITE
 #--GET THE BALL FOR THE GAME 
 #--GENERATE THE RECTANGULAR BRICKS
+
+#--THE GAME HAS FOUR STATES
+#-- 1.BALL IN PADDLE 
+#-- 2.PLAYING 
+#-- 3. GAME OVER
+#-- 4. WON

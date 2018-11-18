@@ -4,6 +4,7 @@ from pygame.locals import *
 from Config import Config 
 from Paddle import Paddle
 from Bricks import Bricks
+from Ball import Ball
 
 pygame.init()
 
@@ -11,8 +12,10 @@ pygame.init()
 pygame.display.set_caption(Config['game']['caption'])
 game_display = pygame.display.set_mode((Config['game']['display_width'], Config['game']['display_height']))
 clock = pygame.time.Clock()
+#--Taking the different elements of the game
 paddle= Paddle(game_display)
 bricks= Bricks(game_display)
+ball= Ball(game_display)
 
 x_change = 0
 pressed_left = False
@@ -52,6 +55,13 @@ def event_handler():
 	if pressed_right:
 		x_change = 5
 
+	#--INSISE EVENT HANDLER
+	#--THE GAME HAS FOUR STATES
+	#-- 1.BALL IN PADDLE 
+	#-- 2.PLAYING 
+	#-- 3. GAME OVER
+	#-- 4. WON
+
 #--Loop will run forever unless disrupted
 while True:
 	event_handler()
@@ -64,14 +74,8 @@ while True:
 	#--Deals with bricks
 	bricks.draw()
 
+	#--Deals with the ball
+	ball.draw()
+
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])
-
-#--GET THE BALL FOR THE GAME 
-#--GENERATE THE RECTANGULAR BRICKS
-
-#--THE GAME HAS FOUR STATES
-#-- 1.BALL IN PADDLE 
-#-- 2.PLAYING 
-#-- 3. GAME OVER
-#-- 4. WON

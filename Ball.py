@@ -11,6 +11,9 @@ class Ball:
 		self.ball_y = int(Config['game']['display_height'] * 0.92)
 		self.ball_radius= Config['ball']['ball_radius']
 
+		#--this is the ball velocity vector apparently
+		self.ball_vel = [5,-5]
+
 	def draw(self):
 		#we use rect here because circle expects integers
 		pygame.draw.circle(self.game_display, Config['colors']['blue'], (int(self.ball_x), int(self.ball_y)) ,self.ball_radius)		

@@ -26,8 +26,8 @@ Config = {
 	},
 
 	'ball': {
-		'ball_diameter': 16,
-		'ball_radius': 8
+		'ball_diameter': 24,
+		'ball_radius': 12
 	}
 
 }

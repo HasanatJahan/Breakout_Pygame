@@ -12,10 +12,17 @@ pygame.init()
 pygame.display.set_caption(Config['game']['caption'])
 game_display = pygame.display.set_mode((Config['game']['display_width'], Config['game']['display_height']))
 clock = pygame.time.Clock()
+
 #--Taking the different elements of the game
 paddle= Paddle(game_display)
 bricks= Bricks(game_display)
 ball= Ball(game_display)
+
+#--State constants
+ball_in_paddle = 0  
+playing = 1
+won = 2
+game_over = 3
 
 x_change = 0
 pressed_left = False
@@ -55,18 +62,16 @@ def event_handler():
 	if pressed_right:
 		x_change = 5
 
-	#--INSISE EVENT HANDLER
-	#--THE GAME HAS FOUR STATES
-	#-- 1.BALL IN PADDLE 
-	#-- 2.PLAYING 
-	#-- 3. GAME OVER
-	#-- 4. WON
-
 #--Loop will run forever unless disrupted
 while True:
 	event_handler()
 	game_display.fill(Config['colors']['black'])
 	
+	
+	#HERE WE HANDLE THE STATES OF THE GAME WITH THE BALL
+	# if state==ball_in_paddle:
+
+
 	#--Deals with paddle
 	paddle.draw()
 	paddle.movement(x_change)
@@ -76,6 +81,7 @@ while True:
 
 	#--Deals with the ball
 	ball.draw()
+	ball.ball_move()
 
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])

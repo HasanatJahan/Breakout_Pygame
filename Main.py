@@ -24,20 +24,31 @@ playing = 1
 won = 2
 game_over = 3
 
+
+#--Change variables 
 x_change = 0
 pressed_left = False
 pressed_right = False
+ball_vel= [0,0]
 
 def event_handler():
 	global pressed_left
 	global pressed_right
 	global x_change
+	global ball_vel
+
 	#--Gets every event on the screen
 	for event in pygame.event.get():
 		#print (event)
 		if (event.type == QUIT) or (event.type == KEYDOWN and event.key == K_ESCAPE):
 			pygame.quit()
 			quit()
+
+		#--This changes the position
+		if pressed_left:
+			x_change = -5
+		if pressed_right:
+			x_change = 5
 	
 		#To move the paddle to the left and right
 		if event.type == KEYDOWN:
@@ -45,6 +56,11 @@ def event_handler():
 				pressed_left = True  
 			elif event.key== K_RIGHT:
 				pressed_right = True
+
+			#--If you press the spacebar then the game state changes
+			if event.key == K_SPACE:
+				ball_vel = [5,-5]
+				ball.ball_move(ball_vel)
 
 		#If the key is up- the object should maintain its old position
 		if event.type == KEYUP:
@@ -55,12 +71,6 @@ def event_handler():
 			elif event.key == K_RIGHT:
 				pressed_right = False 
 				x_change = 0
-
-	#--This changes the position
-	if pressed_left:
-		x_change = -5
-	if pressed_right:
-		x_change = 5
 
 #--Loop will run forever unless disrupted
 while True:
@@ -81,7 +91,6 @@ while True:
 
 	#--Deals with the ball
 	ball.draw()
-	ball.ball_move()
 
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])

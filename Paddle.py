@@ -7,7 +7,7 @@ class Paddle:
 	def __init__(self, game_display):
 			self.x = Config['game']['display_width'] * 0.45
 			self.y = Config['game']['display_height'] * 0.92
-			self.game_display=game_display
+			self.game_display = game_display
 			self.paddle_width = Config['paddle']['paddle_width']
 			self.paddle_height = Config['paddle']['paddle_height']
 	

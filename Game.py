@@ -18,12 +18,11 @@ paddle= Paddle(game_display)
 bricks= Bricks(game_display)
 ball= Ball(game_display)
 
-#--State constants
+# #--State constants- have not been used yet
 ball_in_paddle = 0  
 playing = 1
 won = 2
 game_over = 3
-
 
 #--Change variables 
 x_change = 0
@@ -39,17 +38,11 @@ def event_handler():
 
 	#--Gets every event on the screen
 	for event in pygame.event.get():
-		#print (event)
+		#print(event)
 		if (event.type == QUIT) or (event.type == KEYDOWN and event.key == K_ESCAPE):
 			pygame.quit()
 			quit()
 
-		#--This changes the position
-		if pressed_left:
-			x_change = -5
-		if pressed_right:
-			x_change = 5
-	
 		#To move the paddle to the left and right
 		if event.type == KEYDOWN:
 			if event.key == K_LEFT:
@@ -61,6 +54,7 @@ def event_handler():
 			if event.key == K_SPACE:
 				ball_vel = [5,-5]
 				ball.ball_move(ball_vel)
+				#put the state here
 
 		#If the key is up- the object should maintain its old position
 		if event.type == KEYUP:
@@ -71,6 +65,14 @@ def event_handler():
 			elif event.key == K_RIGHT:
 				pressed_right = False 
 				x_change = 0
+
+	#--This changes the position
+		if pressed_left:
+			x_change = -5
+		if pressed_right:
+			x_change = 5
+	
+
 
 #--Loop will run forever unless disrupted
 while True:
@@ -92,5 +94,6 @@ while True:
 	#--Deals with the ball
 	ball.draw()
 
+	#--Updating the display with the ball
 	pygame.display.update()
 	clock.tick(Config['game']['fps'])

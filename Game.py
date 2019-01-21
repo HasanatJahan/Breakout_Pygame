@@ -14,9 +14,9 @@ game_display = pygame.display.set_mode((Config['game']['display_width'], Config[
 clock = pygame.time.Clock()
 
 #--Taking the different elements of the game
-paddle= Paddle(game_display)
-bricks= Bricks(game_display)
-ball= Ball(game_display)
+paddle_obj= Paddle(game_display)
+brick_obj= Bricks(game_display)
+ball_obj= Ball(game_display)
 
 # #--State constants- have not been used yet
 ball_in_paddle = 0  
@@ -34,7 +34,7 @@ def event_handler():
 	global pressed_left
 	global pressed_right
 	global x_change
-	global ball_vel
+	# global ball_vel
 
 	#--Gets every event on the screen
 	for event in pygame.event.get():
@@ -51,14 +51,12 @@ def event_handler():
 				pressed_right = True
 
 			#--If you press the spacebar then the game state changes
-			if event.key == K_SPACE:
-				ball_vel = [5,-5]
-				ball.ball_move(ball_vel)
-				#put the state here
+			# if event.key == K_SPACE:
+			# 	ball_vel = [5,-5]
+			# 	ball.ball_move(ball_vel)
 
 		#If the key is up- the object should maintain its old position
 		if event.type == KEYUP:
-			#Trying to account for the keyup to make the board movement smoother
 			if event.key == K_LEFT:
 				pressed_left = False
 				x_change = 0
@@ -71,28 +69,31 @@ def event_handler():
 			x_change = -5
 		if pressed_right:
 			x_change = 5
-	
 
+
+# #---------------------------------------------------------------	
+	for brick in brick_obj.brick_list:
+		if ball_obj.ball.colliderect(brick):
+			# ball_vel[1] = -ball_vel[1]
+			#you remove a brick here because you are iterating here
+			brick_obj.brick_list.remove(brick)
+			break
+#-------------------------------------------------------------------
 
 #--Loop will run forever unless disrupted
 while True:
 	event_handler()
 	game_display.fill(Config['colors']['black'])
 	
-	
-	#HERE WE HANDLE THE STATES OF THE GAME WITH THE BALL
-	# if state==ball_in_paddle:
-
-
 	#--Deals with paddle
-	paddle.draw()
-	paddle.movement(x_change)
+	paddle_obj.draw()
+	paddle_obj.movement(x_change)
 
 	#--Deals with bricks
-	bricks.draw()
+	brick_obj.draw()
 
 	#--Deals with the ball
-	ball.draw()
+	ball_obj.draw()
 
 	#--Updating the display with the ball
 	pygame.display.update()

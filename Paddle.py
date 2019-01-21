@@ -10,6 +10,7 @@ class Paddle:
 			self.game_display = game_display
 			self.paddle_width = Config['paddle']['paddle_width']
 			self.paddle_height = Config['paddle']['paddle_height']
+			self.paddle = pygame.Rect(self.x,self.y, self.paddle_width, self.paddle_height)
 	
 			
 	def draw(self):

@@ -7,8 +7,8 @@ from Paddle import Paddle
 class Ball():
 	def __init__(self, game_display):
 		self.game_display = game_display
-		self.ball_x = 500
-		self.ball_y = 500
+		self.ball_x = 300
+		self.ball_y = 300
 		self.ball_radius = Config['ball']['ball_radius']
 		self.ball_diameter = Config['ball']['ball_diameter']
 		self.paddle_width = Config['paddle']['paddle_width']

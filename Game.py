@@ -18,11 +18,10 @@ paddle_obj= Paddle(game_display)
 brick_obj= Bricks(game_display)
 ball_obj= Ball(game_display)
 
-# #--State constants- have not been used yet
-ball_in_paddle = 0  
-playing = 1
-won = 2
-game_over = 3
+#--------------------------------------------------------------------------------
+#--Deals with bricks
+brick_obj.draw()
+#--------------------------------------------------------------------------------
 
 #--Change variables 
 x_change = 0
@@ -74,10 +73,9 @@ def event_handler():
 # #---------------------------------------------------------------	
 	for brick in brick_obj.brick_list:
 		if ball_obj.ball.colliderect(brick):
-			# ball_vel[1] = -ball_vel[1]
-			#you remove a brick here because you are iterating here
 			brick_obj.brick_list.remove(brick)
 			break
+	print(len(brick_obj.brick_list))
 #-------------------------------------------------------------------
 
 #--Loop will run forever unless disrupted
@@ -89,8 +87,10 @@ while True:
 	paddle_obj.draw()
 	paddle_obj.movement(x_change)
 
-	#--Deals with bricks
-	brick_obj.draw()
+#---------------------------------------------------------------------	
+	# #--Deals with bricks
+	# brick_obj.draw()
+#------------------------------------------------------------------------
 
 	#--Deals with the ball
 	ball_obj.draw()

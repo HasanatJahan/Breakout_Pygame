@@ -18,22 +18,19 @@ paddle_obj= Paddle(game_display)
 brick_obj= Bricks(game_display)
 ball_obj= Ball(game_display)
 
-#--------------------------------------------------------------------------------
-#--Deals with bricks
-brick_obj.draw()
-#--------------------------------------------------------------------------------
-
 #--Change variables 
 x_change = 0
 pressed_left = False
 pressed_right = False
-ball_vel= [0,0]
+
+game_brick_list= []
+
 
 def event_handler():
 	global pressed_left
 	global pressed_right
 	global x_change
-	# global ball_vel
+	global game_brick_list
 
 	#--Gets every event on the screen
 	for event in pygame.event.get():
@@ -69,14 +66,19 @@ def event_handler():
 		if pressed_right:
 			x_change = 5
 
-
-# #---------------------------------------------------------------	
+#----------------------------------------------------------------
 	for brick in brick_obj.brick_list:
 		if ball_obj.ball.colliderect(brick):
+			#this appends to the created bricklist- which is then turned black in the brick_obj.update_bricks() function
+			game_brick_list.append(brick)
+			#check to see if game_brick_list is appended
+			print(game_brick_list)
+	 		# this is removing a brick object- it has no color attribute
 			brick_obj.brick_list.remove(brick)
-			break
-	print(len(brick_obj.brick_list))
+			#print(len(brick_obj.brick_list))
+			# brick_obj.update_bricks(brick_obj.brick_list)
 #-------------------------------------------------------------------
+
 
 #--Loop will run forever unless disrupted
 while True:
@@ -88,8 +90,9 @@ while True:
 	paddle_obj.movement(x_change)
 
 #---------------------------------------------------------------------	
-	# #--Deals with bricks
-	# brick_obj.draw()
+	#--Deals with bricks
+	brick_obj.create_bricks()
+	brick_obj.update_bricks(game_brick_list)
 #------------------------------------------------------------------------
 
 	#--Deals with the ball

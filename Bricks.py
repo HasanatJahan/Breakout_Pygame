@@ -24,22 +24,13 @@ class Bricks:
 				self.brick_list.append(pygame.Rect(self.bricks_x, self.bricks_y, self.brick_width, self.brick_height))
 				self.bricks_x += self.brick_width + 10
 			self.bricks_y += self.brick_height + 5
-		# print(self.brick_list)
-
-
-
-	def draw(self):		
-		self.create_bricks()
-	#--This draws on the bricks from the list, with each object being brick
+		
+		#this draws on the bricks for every brick in brick_list
 		for brick in self.brick_list:
-			pygame.draw.rect(self.game_display, self.brick_color, brick)
+			pygame.draw.rect(self.game_display, self.brick_color, brick)			
 
 
-	
-
-	# HERE YOU HAVE TO DRAW THE INITIAL BRICKS 
-	# THE PROBLEM IS THAT THE BRICK OBJECT IS BEING REMOVED BUT NOT THE PICTURE
-	# MAYBE SEPERATE AN INITIAL DRAW WITH BRICKS 
-	# THEN AN UPDATE FUNCTION THAT CREATES THE BRICKS 
-	# AND ACCOUNTS FOR THE CHANGE IN THE BRICK_LIST
-	# MAYBE CREATE SEPEREATE METHODS HERE
+	def update_bricks(self, game_brick_list):
+		# this turns any bricks in the the game_brick_list to black
+		for brick in game_brick_list:
+			pygame.draw.rect(self.game_display, Config['colors']['black'], brick)

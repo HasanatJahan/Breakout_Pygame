@@ -14,9 +14,9 @@ game_display = pygame.display.set_mode((Config['game']['display_width'], Config[
 clock = pygame.time.Clock()
 
 #--Taking the different elements of the game
-paddle_obj= Paddle(game_display)
-brick_obj= Bricks(game_display)
-ball_obj= Ball(game_display)
+paddle_obj = Paddle(game_display)
+brick_obj = Bricks(game_display)
+ball_obj = Ball(game_display)
 
 #--Change variables 
 x_change = 0
@@ -67,16 +67,15 @@ def event_handler():
 			x_change = 5
 
 #----------------------------------------------------------------
+
 	for brick in brick_obj.brick_list:
 		if ball_obj.ball.colliderect(brick):
-			#this appends to the created bricklist- which is then turned black in the brick_obj.update_bricks() function
+			#this appends to the created bricklist-which is then turned black in the brick_obj.update_bricks() function
+			print(brick, ball_obj.ball)
 			game_brick_list.append(brick)
-			#check to see if game_brick_list is appended
-			print(game_brick_list)
-	 		# this is removing a brick object- it has no color attribute
+			# print(len(game_brick_list))
 			brick_obj.brick_list.remove(brick)
-			#print(len(brick_obj.brick_list))
-			# brick_obj.update_bricks(brick_obj.brick_list)
+
 #-------------------------------------------------------------------
 
 

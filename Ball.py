@@ -16,9 +16,12 @@ class Ball():
 		self.max_x = Config['game']['display_width']- self.ball_diameter
 		self.max_y = Config['game']['display_height'] - self.ball_diameter 
 		
-		self.ball = pygame.Rect(self.ball_x, Config['paddle']['paddle_width']- self.ball_diameter, self.ball_diameter, self.ball_diameter)
+		# Rect--> Rect(left, top, width, height)
+		# Remaking the ball object
+		self.ball = pygame.Rect(self.ball_x+ self.ball_radius, self.ball_y + self.ball_radius, self.ball_diameter, self.ball_diameter)
 
 	def draw(self):
+		#cicele-> circle(surface, color, pos, radius, width=0)
 		pygame.draw.circle(self.game_display, Config['colors']['white'], [self.ball_x + self.ball_radius, self.ball_y + self.ball_radius], self.ball_radius)
 
 
